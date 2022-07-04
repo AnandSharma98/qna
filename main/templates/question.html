@@ -1,0 +1,69 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+<div class="page-question-page">
+  <h2 class="question-title">{{question.title}}</h2>
+
+<div class="question-container">
+  <p class="question-body">{{question.body}}</p>
+  <p>
+    {% if question.url %}
+    <a href="{{question.url}}" target="_blank">link specified</a>
+    {% endif %}
+  </p>
+  <p>
+    {% if question.image %}
+      <img src="{{ question.image.url }}" >
+    {% endif %}
+  </p>
+  <div class="question-ask_detail">
+    <p><span style="font-weight:bold">tags: </span></p>
+    <p>{% for tag in question.tags.all %}
+    <span style="color:blue;font-weight:bold; margin-right:4px">{{ tag }}</span>
+    {% endfor %}
+    <p> <span class="question-author">author : {{question.author.username}}</span> </p>
+  </div> 
+  <div class="question-info-container">
+  <p><form action="{% url 'like_question' question.pk %} " method="POST" >
+      {% csrf_token %}
+      {% if user.is_authenticated %}
+      {% if liked  %}
+        <button type="submit" disabled name="question_id" value="{{ question.id }}" class="arrow">  </button>
+        <p>{{ question.total_likes }}</p>
+        <button type="submit" name="question_id" value="{{ question.id }}" class="arrow-down"> </button>
+      {% else %}
+      <button type="submit" name="question_id" value="{{ question.id }}" class="arrow">  </button>
+      <p>{{ question.total_likes }}</p>
+      <button type="submit" disabled name="question_id" value="{{ question.id }}" class="arrow-down"> </button>     
+      {% endif %}
+      {% endif %}
+    </form></p>
+  </div>
+  </div>
+
+
+<div class="responses-container">
+  <h4 class="responses-container-heading">Responses</h4>
+
+  {% if not question.responses.all %}
+    <p class="no-responses-text">No responses yet</p>
+  {% else %}
+    {% for response in question.get_responses %} <!-- use of that get response method-->
+      {% include 'components/response.html' with response=response %}  <!-- (see this)response=response , jo view se response aaya the na (with response ek naye keyword me assign ho gya , yhi response ab response.html ko pass hga)-->
+    {% endfor %}
+  {% endif %}
+</div>
+
+{% if user.is_authenticated %}
+<form method="POST" action="" class="response-form">
+{% csrf_token %}
+<div class="fieldWrapper">
+  <label for="{{response_form.body.id_for_label}}">Your answer:</label>
+  {{response_form.body}}
+</div>
+<input type="submit" value="Send" class="submit-button"/>
+</form>
+{% endif %}
+
+</div>
+{% endblock %}

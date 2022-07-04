@@ -1,0 +1,41 @@
+{% extends 'layouts/page.html' %}
+
+{% block content %}
+<div class="page new-question-page">
+<h1 class="title">New question</h1>
+
+
+<form method="POST" action="" class="shadow-lg p-3 mb-5 bg-white rounded" enctype="multipart/form-data">
+  {% csrf_token %}
+<div class="fieldWrapper">
+  <label for="{{form.title.id_for_label}}">Title:</label>
+  {{form.title}}
+  <span class="error">{{form.title.errors}}</span>
+</div>
+<div class="fieldWrapper">
+  <label for="{{form.body.id_for_label}}">Body:</label>
+  {{form.body}}
+  <span class="error">{{form.body.errors}}</span>
+</div>
+
+<div class="custom-file mb-3">
+  <label for="{{form.image.id_for_label}}">image:</label>
+  {{form.image}}
+  <span class="error">{{form.image.errors}}</span>
+</div>
+
+<div class="fieldWrapper">
+  <label for="{{form.url.id_for_label}}">url:</label>
+  {{form.url}}
+  <span class="error">{{form.url.errors}}</span>
+</div>
+
+<div class="fieldWrapper">
+  <label>Tags</label>
+  <input type="text" data-role="tagsinput" class="form-control" name="tags">
+</div>
+<input type="submit" value="Submit" class="submit-button"/>
+</form>
+</div>
+
+{% endblock %}

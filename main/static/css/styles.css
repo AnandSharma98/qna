@@ -1,0 +1,367 @@
+
+html,
+body {
+  font-family: Segoe UI;
+  background: -webkit-linear-gradient(left, #070431, #05566d);
+}
+
+/*
+* selects every element, ::before and ::after are CSS pseudo elements,
+ comma is how you seperate elements you’re applying rules to in CSS. “apply this rule to all elements, all ::before pseudo-elements and all ::after pseudo-elements”.
+*/
+
+
+/* isko hata k dekna h bad me*/
+*, *::after, *::before {
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+blockquote {
+  border-left: 6px solid rgb(80, 79, 112);
+  padding-left: 6px;
+  margin-left: 15px;
+}
+
+.main {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 24px;
+  border-radius: 20px;
+  background-color: white;
+
+  box-shadow: 5px 10px #302323;
+  overflow: auto;
+}
+
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;   /* space between both the menus*/
+  padding: 0 24px;
+  border-bottom: 1px solid #302323;
+}
+
+
+/*
+ul > li > a selects only the direct children. In this case only the first level <a> of the first level <li> inside the <ul> will be selected.
+
+ul li a on the other hand will select ALL <a>-s in ALL <li>-s in the unordered list
+
+https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
+
+ */
+.user-menu ul li a,
+.main-menu ul li a {
+  color: black;
+  font-weight: 700;
+}
+
+.user-menu ul li a:hover,
+.main-menu ul li a:hover {
+  text-decoration: underline;
+}
+
+
+.user-menu ul li {
+  display: inline;
+  margin-left: 10px;
+}
+
+.main-menu ul li {
+  display: inline;
+  margin-left: 10px;
+  float: left;
+}
+
+.page {
+  display: flex;
+  flex-direction: column;
+}
+
+.new-question-page,
+.login-page,
+.register-page {
+  margin: 0 auto;
+  min-width: 50%;
+  max-width: 50%;
+}
+
+.title {
+  margin: 20px auto 30px auto;
+  font-weight: 900;
+}
+
+.question-list-item {
+  margin-bottom: 20px;
+}
+
+.lines{
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+
+.question-ask_detail {
+  display: flex;
+  width: 100%;
+}
+
+.question-ask_detail p:first-of-type {
+  margin-left: 0px;
+  margin-right: 20px;
+}
+
+.question-ask_detail p:last-of-type {
+  margin-left: auto;
+}
+
+.question-container{
+  display: block;
+}
+
+.question-info-container{
+  display: flex;
+  width: 100%;
+}
+
+.tcresponse, .question-info-container p{
+  margin: 2px;
+}
+
+.question-list-item a:hover {
+  text-decoration: underline;
+  color: black;
+}
+
+.question-list-item-title {
+  color: black;
+  font-size: 18px;
+  font-weight: 900;
+  margin: 0
+}
+
+.page-question-page{
+  width: 800px;
+  margin: 20px auto;
+}
+
+.register-form {
+  width: 100%;
+}
+
+.fieldWrapper {   /* these are for feilds in reg form*/
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.fieldWrapper label {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+
+.fieldWrapper input {
+  margin-bottom: 6px;
+  border: 1px solid lightgray;
+  min-height: 40px;
+}
+
+.error {
+  font-size: 14px;
+  color: red;
+}
+
+.errorlist {
+  margin: 0;
+}
+
+.non_form_errors {
+  margin-bottom: 20px;
+}
+
+.submit-button {
+  display: block;
+  width: 120px;
+  height: 40px;
+  border: none;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.question-title {
+  font-weight: 900;
+  margin: 20px auto 0 auto;
+}
+
+.question-body {
+  margin-bottom: 6px;
+}
+
+.question-author {
+  font-size: 14px;
+  color: rgb(31, 26, 26);
+}
+
+.responses-container {
+  border-top: 1px solid lightgray;
+  margin-top: 30px;
+}
+
+.responses-container-heading {
+  color: rgb(58, 38, 38);
+}
+
+.no-responses-text {
+  color: rgb(46, 33, 33);
+}
+
+.response-body {
+  margin: 0;
+}
+
+.response-author {
+  font-size: 14px;
+  color: rgb(31, 26, 26);
+  float: right;
+}
+
+.response-form {
+  margin-top: 20px;
+  border-top: 1px solid lightgray;
+  padding: 30px;
+}
+
+.reply-button {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  text-transform: lowercase;
+  color: grey;
+  cursor:pointer;
+}
+.reply-form-container {
+  display: none;
+}
+
+.reply-form-container.enabled {
+  display: block;
+}
+
+.reply-form textarea {
+  width: 100%;
+}
+
+.reply-form-cancel-button {
+  font-weight: 600;
+  color: orange;
+  background-color: transparent;
+  border: none;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+.reply-form-submit-button {
+  font-weight: 600;
+  color: white;
+  background-color: orange;
+  border: none;
+  padding: 4px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* 
+for profile
+*/
+.profile-block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: auto;
+}
+
+.profile-block p{
+  margin-right: 100px;
+}
+
+.profile-block form{
+  margin-top: 50px;
+}
+.pic {
+  height: 500px;
+  width: 800px;
+  margin-right: auto;
+}
+
+/* upvote n downvote */
+.arrow {
+  box-sizing: border-box;
+  height: 15px;
+  width: 5px;
+  border-style: solid;
+  border-color: rgb(43, 55, 161);
+  border-width: 3px 0px 0px 3px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+  background-color: white;
+}
+
+.arrow:hover {
+  background-color:green;
+}
+
+
+.arrow-down{
+  box-sizing: border-box;
+  height: 15px;
+  width: 5px;
+  border-style: solid;
+  border-color: rgb(53, 30, 30);
+  border-width: 0px 3px 3px 0px;
+  transform: rotate(45deg);
+  transition: border-width 150ms ease-in-out;
+  background-color: white;
+}
+
+.arrow-down:hover {
+  background-color:red;
+}
+.tot_lik{
+  flex-grow: 3;
+}
+
+
+a:link {
+  color: red;
+}
+
+/* visited link */
+a:visited {
+  color: rgb(129, 61, 146);
+}
+
+/* mouse over link */
+a:hover {
+  color: rgb(14, 49, 124);
+}
+
+/* selected link */
+a:active {
+  color: blue;
+}
+
+
