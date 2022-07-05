@@ -28,7 +28,7 @@ blockquote {
 }
 
 .main {
-  max-width: 900px auto;
+  max-width: 900px;
   margin: 40px auto;
   padding: 24px;
   border-radius: 20px;
