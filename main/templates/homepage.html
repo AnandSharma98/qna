@@ -31,4 +31,8 @@
 </div>
 {% endfor %}
 </div>
+
+{% if not user.is_authenticated %}
+<h5 style="text-align:center; justify-content:center"> you must login to respond and ask any question!! </h5> 
+{% endif %}
 {% endblock %}
