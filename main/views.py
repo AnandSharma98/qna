@@ -144,7 +144,7 @@ def replyPage(request):
 def searchResults(request):
     search_question = request.GET.get('search')
     if search_question:
-        questions = Question.objects.filter(Q(title__icontains=search_question) | Q(body__icontains=search_question)|Q(tags__name__icontains=search_question))[:10]
+        questions = Question.objects.filter(Q(title__icontains=search_question) | Q(body__icontains=search_question) | Q(tags__name__icontains=search_question)).distinct()[:10] # distinct islie kuki , jo result return hta h , vo join of ans set of all condition hta h : to same ans 1 se jyada or cond me satisfy kr skte h
     else:
     # If not searched, return default posts
         questions = Question.objects.all().order_by('-created_at')[:10]   

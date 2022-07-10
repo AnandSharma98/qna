@@ -201,9 +201,10 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
   cursor: pointer;
 }
 
+/* margin: 0 auto; Sets the element's left and right margins to auto , and the top and bottom margins to 0 . margin: auto; Sets all the margins to auto  */
 .question-title {
   font-weight: 900;
-  margin: 20px auto 0 auto;
+  margin: 20px auto;
 }
 
 .question-body {

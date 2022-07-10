@@ -10,6 +10,7 @@
 
 
 {% for question in questions %}
+<div class="shadow-lg p-3 mb-5 bg-white rounded">
 <div  class="lines"></div>
 <div class="question-list-item">
   <a href="{% url 'question' question.id %}">
@@ -26,8 +27,8 @@
       </p>
       <p> <span class="question-author">author : {{question.author.username}}</span> </p>
     </div>    
-  <div  class="lines"></div>
-
+</div>
+<div  class="lines"></div>
 </div>
 {% endfor %}
 </div>
