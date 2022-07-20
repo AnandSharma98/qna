@@ -16,8 +16,7 @@ class Question(models.Model):
     image = CloudinaryField('image')
     
     url = models.URLField(blank=True)
-    likes = models.ManyToManyField(User, related_name='questions')
-    slug = models.SlugField(unique=True, max_length=100)
+    likes = models.ManyToManyField(User, related_name='questions')  # it's like M:N relationship: where one row can refer to many row of another table and vice versa (a user can  like many questions, a question can have many likes)
     tags = TaggableManager()
 
     # auto_now_add will set time when an instance is created whereas auto_now will set time when someone modified his instance.
@@ -38,7 +37,7 @@ class Question(models.Model):
 
 
 class Response(models.Model):
-    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)  # one row of table referring to many row of another table (bole toh multiple response ka same user ho skte h )
  # https://www.geeksforgeeks.org/related_name-django-built-in-field-validation/#:~:text=The%20related_name%20attribute%20specifies%20the,model%20back%20to%20your%20model.
  # about this related_name   
     question = models.ForeignKey(Question, null=False, on_delete=models.CASCADE, related_name='responses')
@@ -61,7 +60,7 @@ class Response(models.Model):
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)  # one row of table referring to only single row of another table
     avatar = CloudinaryField('image')
     bio = models.TextField()
 
