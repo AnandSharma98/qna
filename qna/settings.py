@@ -15,9 +15,9 @@ from pathlib import Path
 from dotenv import load_dotenv
 load_dotenv() 
 
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+# import cloudinary
+# import cloudinary.uploader
+# import cloudinary.api
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -45,14 +45,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
-    'taggit',
+    'taggit', #django-taggit is a reusable application that primarily offers you a Tag model, and a manager for easily adding tags to any model. 
     'cloudinary',
     'cloudinary_storage',
 ]
 
 MIDDLEWARE = [
+    # middleware is a framework that process some  logic  in between request and response
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # used to serve static files during deployment
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -124,7 +125,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-config = cloudinary.config(secure=True)
+# config = cloudinary.config(secure=True)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')

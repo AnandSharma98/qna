@@ -10,7 +10,6 @@ from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.template.defaultfilters import slugify
-from taggit.models import Tag
 # Create your views here.
 
 def registerPage(request):
@@ -66,9 +65,8 @@ def newQuestionPage(request):
             if form.is_valid():
                 question = form.save(commit=False)
                 question.author = request.user  # saving author from user(so basically form me sb present ho zruri ni)
-                question.slug = slugify(question.title)
                 question.save()
-                form.save_m2m()
+                form.save_m2m()  # After you’ve manually saved the instance produced by the form, you can invoke save_m2m() to save the many-to-many form data
                 id = question.id
                 return redirect('/question/'+str(id))
         except Exception as e:
