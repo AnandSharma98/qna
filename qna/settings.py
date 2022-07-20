@@ -12,12 +12,9 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 
 import os
 from pathlib import Path
+#basically what python-dotenv does is read key-value pairs from a .env file and set them as environment variables to be retrieved later. (hides vulnerable info)
 from dotenv import load_dotenv
-load_dotenv() 
-
-# import cloudinary
-# import cloudinary.uploader
-# import cloudinary.api
+load_dotenv()  # loads the configs from .env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-e93a6kjymjn*px6=mn_-qka0)^negdro(v@lo#b4j_y$6$mq^t'
+SECRET_KEY = str(os.getenv('SECRET_KEY'))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -125,7 +122,6 @@ USE_I18N = True
 USE_TZ = True
 
 
-# config = cloudinary.config(secure=True)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
