@@ -103,10 +103,8 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 .lines{
   display: block;
   height: 1px;
-  border: 0;
-  border-top: 1px solid #ccc;
+  border-top: 2px solid #ccc;
   margin: 1em 0;
-  padding: 0;
 }
 
 .question-ask_detail {
@@ -316,8 +314,7 @@ for profile
   border-style: solid;
   border-color: rgb(43, 55, 161);
   border-width: 3px 0px 0px 3px;
-  transform: rotate(45deg);
-  transition: border-width 150ms ease-in-out;
+  transform: rotate(45deg); /*rotated the box*/
   background-color: white;
 }
 
@@ -334,7 +331,6 @@ for profile
   border-color: rgb(53, 30, 30);
   border-width: 0px 3px 3px 0px;
   transform: rotate(45deg);
-  transition: border-width 150ms ease-in-out;
   background-color: white;
 }
 

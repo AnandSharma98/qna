@@ -1,39 +1,40 @@
-{% extends 'layouts/page.html' %}
-
-{% block content %}
+{% extends 'layouts/page.html' %} {% block content %}
 <div class="page">
   {% if questions %}
-<h1 class="title">recent questions</h1>
+  <h1 class="title">recent questions</h1>
   {% else %}
-<h1 class="title">You seems to be the first one is here , Ask freely!!</h1>  
- {% endif %}
-
-
-{% for question in questions %}
-<div class="shadow-lg p-3 mb-5 bg-white rounded">
-<div  class="lines"></div>
-<div class="question-list-item">
-  <a href="{% url 'question' question.id %}">
-    <p class="question-list-item-title">
-      {{question.title}}
-    </p>
-    asked on : {{question.created_at}}
-  </a> 
-    <div class="question-ask_detail">
-      <p><span style="font-weight:bold">tags: </span></p>
-      <p>{% for tag in question.tags.all %}
-      <span style="color:blue;font-weight:bold; margin-right:4px">{{ tag }}</span>
-      {% endfor %}
-      </p>
-      <p> <span class="question-author">author : {{question.author.username}}</span> </p>
-    </div>    
-</div>
-<div  class="lines"></div>
-</div>
-{% endfor %}
+  <h1 class="title">You seems to be the first one is here , Ask freely!!</h1>
+  {% endif %} {% for question in questions %}
+  <div class="shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="lines"></div>
+    <div class="question-list-item">
+      <a href="{% url 'question' question.id %}">
+        <p class="question-list-item-title">{{question.title}}</p>
+        asked on : {{question.created_at}}
+      </a>
+      <div class="question-ask_detail">
+        <p><span style="font-weight: bold">tags: </span></p>
+        <p>
+          {% for tag in question.tags.all %}
+          <span style="color: blue; font-weight: bold; margin-right: 4px"
+            >{{ tag }}</span
+          >
+          {% endfor %}
+        </p>
+        <p>
+          <span class="question-author"
+            >author : {{question.author.username}}</span
+          >
+        </p>
+      </div>
+    </div>
+    <div class="lines"></div>
+  </div>
+  {% endfor %}
 </div>
 
 {% if not user.is_authenticated %}
-<h5 style="text-align:center; justify-content:center"> you must login to respond and ask any question!! </h5> 
-{% endif %}
-{% endblock %}
+<h5 style="text-align: center; justify-content: center">
+  you must login to respond and ask any question!!
+</h5>
+{% endif %} {% endblock %}

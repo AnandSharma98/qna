@@ -5,7 +5,6 @@
   
     <form action="{% url 'like_response' %} " method="POST" >
       {% csrf_token %}
-      {% if user.is_authenticated %}
       {% if user|che:response.id  %}
       <button type="submit" disabled name="response_id" value="{{ response.id }}" class="arrow">  </button>
       <p class="tcresponse">{{ response.total_likes }}</p>
@@ -15,13 +14,12 @@
       <p class="tcresponse">{{ response.total_likes }}</p>
       <button type="submit" disabled name="response_id" value="{{ response.id }}" class="arrow-down"> </button> 
       {% endif %}
-      {% endif %}
     </form>
     <br><br>
 
-    {% if user.is_authenticated %}
+    {% comment %} {% if user.is_authenticated %} {% endcomment %}
       <button type="button" class="fa fa-reply" style="border:none; background-color:white;" onclick="handleReplyButton({{response.id}})"></button>
-    {% endif %}
+    {% comment %} {% endif %} {% endcomment %}
   
     <!--handled in js using function and corresponding style in css: using that above reply button-->
     <blockquote id="reply-form-container-{{response.id}}" class="reply-form-container"> <!--specifying id means: we're going to use this in javascript-->

@@ -1,8 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-from PIL import Image
 from taggit.managers import TaggableManager
-from django_resized import ResizedImageField
 from cloudinary.models import CloudinaryField
 # Create your models here.
 
@@ -16,7 +14,7 @@ class Question(models.Model):
     image = CloudinaryField('image')
     
     url = models.URLField(blank=True)
-    likes = models.ManyToManyField(User, related_name='questions')  # it's like M:N relationship: where one row can refer to many row of another table and vice versa (a user can  like many questions, a question can have many likes)
+    likes = models.ManyToManyField(User, related_name='question_likes')  # it's like M:N relationship: where one row can refer to many row of another table and vice versa (a user can  like many questions, a question can have many likes)
     tags = TaggableManager()
 
     # auto_now_add will set time when an instance is created whereas auto_now will set time when someone modified his instance.
@@ -32,9 +30,6 @@ class Question(models.Model):
         return self.responses.filter(parent=None) # see link of gfg , jo related_name=responses dia h na , usi ki vjh se self.responses likh ke b Response ke objects ko access kr paa re h
 
 
-        # it overrides the saving behaviour, basically resizing the image going to be saved
-
-
 
 class Response(models.Model):
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE)  # one row of table referring to many row of another table (bole toh multiple response ka same user ho skte h )
@@ -45,7 +40,7 @@ class Response(models.Model):
     body = models.TextField(null=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    likes = models.ManyToManyField(User, related_name='responses')
+    likes = models.ManyToManyField(User, related_name="response_likes")
 
     def __str__(self):
         return self.body
@@ -66,16 +61,5 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.user.username
-
-    # # it overrides the saving behaviour, basically resizing the image going to be saved
-    # def save(self, *args, **kwargs):
-    #     super().save()
-
-    #     img = CloudinaryField('image')
-
-    #     if img.height > 100 or img.width > 100:
-    #         new_img = (100, 100)
-    #         img.thumbnail(new_img)
-    #         img.save(self.avatar.path)    
 
 # https://dev.to/earthcomfy/django-user-profile-3hik        

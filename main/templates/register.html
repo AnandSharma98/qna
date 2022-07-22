@@ -1,40 +1,42 @@
-{% extends 'layouts/page.html' %}
-
-{% block content %}
+{% extends 'layouts/page.html' %} {% block content %}
 <div class="page register-page">
-<h1 class="title">Register</h1>
+  <h1 class="title">Register</h1>
 
-
-<div class="shadow-lg p-3 mb-5 bg-body rounded">
-<form method="POST" action="" class="register-form" enctype="multipart/form-data">
-  {% csrf_token %}
-<div class="fieldWrapper">
-  <label for="{{form.email.id_for_label}}">Email:</label>  <!--basically id k through bta reh konse el k lie label h thats it-->
-  {{form.email}}
-  <span class="error">{{form.email.errors}}</span>  <!-- to catch any error occurred for email feild-->
-</div>
-<div class="fieldWrapper">
-  <label for="{{form.username.id_for_label}}">Username:</label>
-  {{form.username}}
-  <span class="error">{{form.username.errors}}</span>
-</div>
-<div class="fieldWrapper">
-  <label for="{{form.password1.id_for_label}}">Password:</label>
-  {{form.password1}}
-  <span class="error">{{form.password1.errors}}</span>
-</div>
-<div class="fieldWrapper">
-  <label for="{{form.password2.id_for_label}}">Confirm Password:</label>
-  {{form.password2}}
-  <span class="error">{{form.password2.errors}}</span>
-</div>
-{% if form.non_field_errors %}
-<div class="non_form_errors">
-  <span class="error">{{form.non_field_errors.as_ul}}</span> <!-- getting list of errors .as_ul-->
-</div>
-{% endif %}
-<input type="submit" value="Register" class="submit-button"/>
-</form>
-</div>
+  <div class="shadow-lg p-3 mb-5 bg-body rounded">
+    <form
+      method="POST"
+      action=""
+      class="register-form"
+      enctype="multipart/form-data"
+    >
+      {% csrf_token %}
+      <div class="fieldWrapper">
+        <label for="{{form.email.id_for_label}}">Email:</label>
+        {{form.email}}
+        <span class="error">{{form.email.errors}}</span>
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{form.username.id_for_label}}">Username:</label>
+        {{form.username}}
+        <span class="error">{{form.username.errors}}</span>
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{form.password1.id_for_label}}">Password:</label>
+        {{form.password1}}
+        <span class="error">{{form.password1.errors}}</span>
+      </div>
+      <div class="fieldWrapper">
+        <label for="{{form.password2.id_for_label}}">Confirm Password:</label>
+        {{form.password2}}
+        <span class="error">{{form.password2.errors}}</span>
+      </div>
+      {% if form.non_field_errors %}
+      <div class="non_form_errors">
+        <span class="error">{{form.non_field_errors.as_ul}}</span>
+      </div>
+      {% endif %}
+      <input type="submit" value="Register" class="submit-button" />
+    </form>
+  </div>
 </div>
 {% endblock %}

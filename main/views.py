@@ -9,7 +9,6 @@ from django.urls import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.messages.views import SuccessMessageMixin
-from django.template.defaultfilters import slugify
 # Create your views here.
 
 def registerPage(request):
@@ -50,7 +49,7 @@ def loginPage(request):
     context = {'form': form}
     return render(request, 'login.html', context)
 
-@login_required(login_url='register') # if not logged in , reg page will be shown  (useless)
+@login_required(login_url='register')
 def logoutPage(request):
     logout(request)
     return redirect('login')
@@ -66,7 +65,7 @@ def newQuestionPage(request):
                 question = form.save(commit=False)
                 question.author = request.user  # saving author from user(so basically form me sb present ho zruri ni)
                 question.save()
-                form.save_m2m()  # After you’ve manually saved the instance produced by the form, you can invoke save_m2m() to save the many-to-many form data
+                form.save_m2m()  # After you’ve manually saved the instance produced by the form, you can invoke save_m2m() to save the many-to-many form data  (https://stackoverflow.com/questions/21068050/django-save-method-saving-the-manytomany-field-why-do-we-need-save-m2m)
                 id = question.id
                 return redirect('/question/'+str(id))
         except Exception as e:
@@ -87,12 +86,12 @@ def questionPage(request, id):
     response_form = NewResponseForm()
     reply_form = NewReplyForm()
 
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         try:
             response_form = NewResponseForm(request.POST)
             # this is for : what happens when you add any response
             if response_form.is_valid():
-                response = response_form.save(commit=False) # see this
+                response = response_form.save(commit=False) 
                 response.user = request.user
                 response.question = Question(id=id)  # question k id k through Question model se question detail pick krre h, jo  response detail k sath dave krna h
                 response.save()
@@ -100,11 +99,14 @@ def questionPage(request, id):
         except Exception as e:
             print(e)
             raise
+    else:
+        messages.warning(request, 'please login first')
+
 
     # here , with question.html and in model related name, timestamp: 2:09
     question = Question.objects.get(id=id)
     liked = False
-    if question.likes.filter(id=request.user.id).exists():  
+    if question.likes.filter(id=request.user.id).exists() and request.user.is_authenticated:  
         liked = True
     else:
         liked = False  
@@ -118,9 +120,9 @@ def questionPage(request, id):
     return render(request, 'question.html', context)
 
 
-@login_required(login_url='register')
+@login_required(login_url='login')
 def replyPage(request):
-    if request.method == 'POST':
+    if request.method == 'POST' and request.user.is_authenticated:
         try:
             form = NewReplyForm(request.POST)
             if form.is_valid():
@@ -135,6 +137,8 @@ def replyPage(request):
         except Exception as e:
             print(e)
             raise
+    else:
+        messages.warning(request, 'please login first')   
 
     return redirect('index')
 
@@ -155,19 +159,27 @@ def searchResults(request):
     return render(request, 'homepage.html', context)
 
 def LikeView(request, pk):
-    question = get_object_or_404(Question, id=request.POST.get('question_id'))  # this will take that button from form
-    if question.likes.filter(id=request.user.id).exists():  # removing the like of person : if he's disliking
-        question.likes.remove(request.user)
+    if request.user.is_authenticated:
+        question = get_object_or_404(Question, id=request.POST.get('question_id'))  # this will take that button from form
+        if question.likes.filter(id=request.user.id).exists():  # removing the like of person : if he's disliking
+            question.likes.remove(request.user)
+        else:
+            question.likes.add(request.user) # saving that person who liked the question
     else:
-        question.likes.add(request.user) # saving that person who liked the question
-    return HttpResponseRedirect(reverse('question', args=[str(pk)]))
+        messages.warning(request, 'please login first')  
+
+    return HttpResponseRedirect(reverse('question', args=[str(pk)]))     
 
 def LikeViewResponse(request):
-    response = get_object_or_404(Response, id=request.POST.get('response_id'))  # this will take that button from form
-    if response.likes.filter(id=request.user.id).exists():  # removing the like of person : if he's disliking
-        response.likes.remove(request.user)
+    response = get_object_or_404(Response, id=request.POST.get('response_id')) # this will take that button from form
+    if request.user.is_authenticated:
+        if response.likes.filter(id=request.user.id).exists():  # removing the like of person : if he's disliking
+            response.likes.remove(request.user)
+        else:
+            response.likes.add(request.user) # saving that person who liked the question
     else:
-        response.likes.add(request.user) # saving that person who liked the question
+        messages.warning(request, 'please login first')  
+
     return HttpResponseRedirect(reverse('question', args=[str(response.question.id)]))    
 
 
@@ -198,4 +210,3 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
                       " If you don't receive an email, " \
                       "please make sure you've entered the address you registered with, and check your spam folder."
     success_url = reverse_lazy('index')
-

@@ -1,6 +1,5 @@
 from django import template
-from django.contrib.auth.models import User
-from main.models import Question, Response
+from main.models import  Response
 
 register = template.Library()
 

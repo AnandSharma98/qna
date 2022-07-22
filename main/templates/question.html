@@ -26,7 +26,6 @@
   <div class="question-info-container">
   <p><form action="{% url 'like_question' question.pk %} " method="POST" >
       {% csrf_token %}
-      {% if user.is_authenticated %}
       {% if liked  %}
         <button type="submit" disabled name="question_id" value="{{ question.id }}" class="arrow">  </button>
         <p>{{ question.total_likes }}</p>
@@ -35,7 +34,6 @@
       <button type="submit" name="question_id" value="{{ question.id }}" class="arrow">  </button>
       <p>{{ question.total_likes }}</p>
       <button type="submit" disabled name="question_id" value="{{ question.id }}" class="arrow-down"> </button>     
-      {% endif %}
       {% endif %}
     </form></p>
   </div>
@@ -54,7 +52,7 @@
   {% endif %}
 </div>
 
-{% if user.is_authenticated %}
+
 <form method="POST" action="" class="response-form">
 {% csrf_token %}
 <div class="fieldWrapper">
@@ -63,7 +61,6 @@
 </div>
 <input type="submit" value="Send" class="submit-button"/>
 </form>
-{% endif %}
 </div>
 
 {% if not user.is_authenticated %}

@@ -22,7 +22,7 @@ class RegisterUserForm(UserCreationForm):
 
 
     def __init__(self, *args, **kwargs):
-#   https://stackoverflow.com/questions/49413185/django-password-fields-placeholder        
+#https://stackoverflow.com/questions/49413185/django-password-fields-placeholder        
         super(RegisterUserForm, self).__init__(*args, **kwargs)
         self.fields['password1'].widget.attrs = {'placeholder': 'password'}
         self.fields['password2'].widget.attrs = {'placeholder': 'confirm password'}
