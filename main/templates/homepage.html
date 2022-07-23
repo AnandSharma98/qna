@@ -5,7 +5,7 @@
   {% else %}
   <h1 class="title">You seems to be the first one is here , Ask freely!!</h1>
   {% endif %} {% for question in questions %}
-  <div class="shadow-lg p-3 mb-5 bg-white rounded">
+  <div class="shadow-lg p-3 mb-5 bg-white rounded question_box">
     <div class="lines"></div>
     <div class="question-list-item">
       <a href="{% url 'question' question.id %}">
@@ -16,7 +16,7 @@
         <p><span style="font-weight: bold">tags: </span></p>
         <p>
           {% for tag in question.tags.all %}
-          <span style="color: blue; font-weight: bold; margin-right: 4px"
+          <span style="color: hsl(205deg 47% 42%); margin-right: 4px; background-color:hsl(205deg 46% 92%); padding:2px; border-radius: 20%"
             >{{ tag }}</span
           >
           {% endfor %}

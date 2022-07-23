@@ -140,7 +140,7 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 }
 
 .question-list-item-title {
-  color: black;
+  color: rgb(43, 55, 161);
   font-size: 18px;
   font-weight: 900;
   margin: 0
@@ -203,6 +203,7 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 .question-title {
   font-weight: 900;
   margin: 20px auto;
+  color:rgb(57, 115, 157)
 }
 
 .question-body {
@@ -211,7 +212,7 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 
 .question-author {
   font-size: 14px;
-  color: rgb(31, 26, 26);
+  color: hsl(205deg 47% 42%);
 }
 
 .responses-container {
@@ -359,6 +360,13 @@ a:hover {
 /* selected link */
 a:active {
   color: blue;
+}
+
+
+
+.question_box:hover{
+  transform: scale(1.02);
+  transition: 1s ease;
 }
 
 
