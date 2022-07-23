@@ -5,8 +5,7 @@
   <small class="response-author"> {{response.user.username}}</small><br />
 
   <form action="{% url 'like_response' %} " method="POST">
-    {% csrf_token %} 
-    {% if user|che:response.id %}
+    {% csrf_token %} {% if user|che:response.id %}
     <button
       type="submit"
       disabled
@@ -72,8 +71,8 @@
     </form>
   </blockquote>
 
-  {% for children in response.get_responses %} {% include
-  'components/response.html' with response=children %}
+  {% for children in response.get_responses %} 
+  {% include 'components/response.html' with response=children %} 
   <!--yhi main h: nesting hori h, response me responses-->
   {% endfor %}
 </blockquote>
