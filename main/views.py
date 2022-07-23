@@ -122,7 +122,7 @@ def questionPage(request, id):
 
 @login_required(login_url='login')
 def replyPage(request):
-    if request.method == 'POST' and request.user.is_authenticated:
+    if request.method == 'POST':
         try:
             form = NewReplyForm(request.POST)
             if form.is_valid():
@@ -161,10 +161,10 @@ def searchResults(request):
 def LikeView(request, pk):
     if request.user.is_authenticated:
         question = get_object_or_404(Question, id=request.POST.get('question_id'))  # this will take that button from form
-        if question.likes.filter(id=request.user.id).exists():  # removing the like of person : if he's disliking
+        if question.likes.filter(id=request.user.id).exists():  #(dislike) removing the like of person : if he's disliking
             question.likes.remove(request.user)
-        else:
-            question.likes.add(request.user) # saving that person who liked the question
+        else: 
+            question.likes.add(request.user) # saving that person who liked the question(like)
     else:
         messages.warning(request, 'please login first')  
 

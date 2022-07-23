@@ -4,7 +4,7 @@ from django.dispatch import receiver
 
 from .models import Profile
 
-
+# post_save is the signal that is sent at the end of the save method.(receiver is function , sender is model(user))
 @receiver(post_save, sender=User)
 def create_profile(sender, instance, created, **kwargs):
     if created:

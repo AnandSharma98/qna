@@ -1,40 +1,79 @@
 {% load cust %}
-<blockquote id="{{response.id}}">   <!--https://www.w3schools.com/tags/tag_blockquote.asp-->
-    <p class="response-body">{{response.body}}</p>
-    <small class="response-author"> {{response.user.username}}</small><br>
-  
-    <form action="{% url 'like_response' %} " method="POST" >
-      {% csrf_token %}
-      {% if user|che:response.id  %}
-      <button type="submit" disabled name="response_id" value="{{ response.id }}" class="arrow">  </button>
-      <p class="tcresponse">{{ response.total_likes }}</p>
-      <button type="submit" name="response_id" value="{{ response.id }}" class="arrow-down"> </button>
-      {% else %}
-      <button type="submit" name="response_id" value="{{ response.id }}" class="arrow">  </button>
-      <p class="tcresponse">{{ response.total_likes }}</p>
-      <button type="submit" disabled name="response_id" value="{{ response.id }}" class="arrow-down"> </button> 
-      {% endif %}
-    </form>
-    <br><br>
+<blockquote>
+  <!--https://www.w3schools.com/tags/tag_blockquote.asp-->
+  <p class="response-body">{{response.body}}</p>
+  <small class="response-author"> {{response.user.username}}</small><br />
 
-    {% comment %} {% if user.is_authenticated %} {% endcomment %}
-      <button type="button" class="fa fa-reply" style="border:none; background-color:white;" onclick="handleReplyButton({{response.id}})"></button>
-    {% comment %} {% endif %} {% endcomment %}
-  
-    <!--handled in js using function and corresponding style in css: using that above reply button-->
-    <blockquote id="reply-form-container-{{response.id}}" class="reply-form-container"> <!--specifying id means: we're going to use this in javascript-->
-      <form method="POST" action="/reply" class="reply-form">
-        {% csrf_token %}
-        <input type="hidden" name="question" value="{{question.id}}"/>
-        <input type="hidden" name="parent" value="{{response.id}}"/>
-        {{reply_form.body}}
-        <button type="button" class="reply-form-cancel-button" onclick="handleCancelReply({{response.id}})">Cancel</button>  <!-- ye function js me handle hga -->
-        <input type="submit" class="reply-form-submit-button" value="Reply"/>
-      </form>
-    </blockquote>
-  
-    {% for children in response.get_responses %}
-    {% include 'components/response.html' with response=children %}  <!--yhi main h: nesting hori h, response me responses-->
-    {% endfor %}
-  
+  <form action="{% url 'like_response' %} " method="POST">
+    {% csrf_token %} 
+    {% if user|che:response.id %}
+    <button
+      type="submit"
+      disabled
+      name="response_id"
+      value="{{ response.id }}"
+      class="arrow"
+    ></button>
+    <p class="tcresponse">{{ response.total_likes }}</p>
+    <button
+      type="submit"
+      name="response_id"
+      value="{{ response.id }}"
+      class="arrow-down"
+    ></button>
+    {% else %}
+    <button
+      type="submit"
+      name="response_id"
+      value="{{ response.id }}"
+      class="arrow"
+    ></button>
+    <p class="tcresponse">{{ response.total_likes }}</p>
+    <button
+      type="submit"
+      disabled
+      name="response_id"
+      value="{{ response.id }}"
+      class="arrow-down"
+    ></button>
+    {% endif %}
+  </form>
+  <br /><br />
+
+  <button
+    type="button"
+    class="fa fa-reply"
+    style="border: none; background-color: white"
+    onclick="handleReplyButton({{response.id}})"
+  ></button>
+
+  <!--handled in js using function and corresponding style in css: using that above reply button-->
+  {% comment %} blackquote id ka yhi use h ki js me isko access krenge id k
+  through {% endcomment %}
+  <blockquote
+    id="reply-form-container-{{response.id}}"
+    class="reply-form-container"
+  >
+    <!--specifying id means: we're going to use this in javascript-->
+    <form method="POST" action="/reply" class="reply-form">
+      {% csrf_token %}
+      <input type="hidden" name="question" value="{{question.id}}" />
+      <input type="hidden" name="parent" value="{{response.id}}" />
+      {{reply_form.body}}
+      <button
+        type="button"
+        class="reply-form-cancel-button"
+        onclick="handleCancelReply({{response.id}})"
+      >
+        Cancel
+      </button>
+      <!-- ye function js me handle hga -->
+      <input type="submit" class="reply-form-submit-button" value="Reply" />
+    </form>
   </blockquote>
+
+  {% for children in response.get_responses %} {% include
+  'components/response.html' with response=children %}
+  <!--yhi main h: nesting hori h, response me responses-->
+  {% endfor %}
+</blockquote>

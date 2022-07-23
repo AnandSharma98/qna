@@ -41,7 +41,7 @@ blockquote {
 .navbar {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;   /* space between both the menus*/
+  justify-content: space-between;   /* space between items*/
   padding: 0 24px;
   border-bottom: 1px solid #302323;
 }
