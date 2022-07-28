@@ -10,22 +10,23 @@
       <li><a href="{% url 'index' %}">HomePage</a></li>
       <li>
         <form action="{% url 'search_results' %}">
+          <i class="fa fa-search icon" style=" position: absolute; padding:6px;"></i>
           <input
             type="search"
-            placeholder="{{ phrase }}"
+            placeholder= ' {{ phrase }}'
             aria-label="Search"
             name="search"
-          />
-          <button type="submit">Search</button>
+          style="border-radius: 24px; padding-left:25px;"/>
+          <button type="submit" style="visibility: hidden;"></button>
         </form>
       </li>
     </ul>
   </div>
 
-  <div class="user-menu">
+  <div class="main-menu">
     <ul>
-      {% if user.is_authenticated %}
       <li><a href="{% url 'new-question' %}">Ask</a></li>
+      {% if user.is_authenticated %}
       <li><a href="{% url 'users-profile' %}">{{ user }}</a></li>
       <li><a href="{% url 'logout' %}">Logout</a></li>
       {% else %}

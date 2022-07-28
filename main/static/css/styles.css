@@ -40,10 +40,13 @@ blockquote {
 
 .navbar {
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;   /* space between items*/
-  padding: 0 24px;
-  border-bottom: 1px solid #302323;
+  z-index: 3;
+  height: 60px;
+  background: #c3d0f7;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 3px rgb(23 23 23 / 24%);
+  border-radius: 24px;
+
 }
 
 
@@ -123,6 +126,8 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 
 .question-container{
   display: block;
+  border-radius: 24px;
+  border: 2px solid transparent;
 }
 
 .question-info-container{

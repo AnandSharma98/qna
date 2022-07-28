@@ -54,7 +54,7 @@ def logoutPage(request):
     logout(request)
     return redirect('login')
 
-@login_required(login_url='register')
+@login_required(login_url='login')
 def newQuestionPage(request):
     form = NewQuestionForm()
 
@@ -86,7 +86,9 @@ def questionPage(request, id):
     response_form = NewResponseForm()
     reply_form = NewReplyForm()
 
-    if request.method == 'POST' and request.user.is_authenticated:
+    if request.method == 'POST':
+        if not request.user.is_authenticated:
+            return redirect('login')
         try:
             response_form = NewResponseForm(request.POST)
             # this is for : what happens when you add any response
@@ -99,8 +101,6 @@ def questionPage(request, id):
         except Exception as e:
             print(e)
             raise
-    else:
-        messages.warning(request, 'please login first')
 
 
     # here , with question.html and in model related name, timestamp: 2:09
@@ -137,9 +137,6 @@ def replyPage(request):
         except Exception as e:
             print(e)
             raise
-    else:
-        messages.warning(request, 'please login first')   
-
     return redirect('index')
 
 
@@ -165,10 +162,10 @@ def LikeView(request, pk):
             question.likes.remove(request.user)
         else: 
             question.likes.add(request.user) # saving that person who liked the question(like)
+        return HttpResponseRedirect(reverse('question', args=[str(pk)]))    
     else:
-        messages.warning(request, 'please login first')  
-
-    return HttpResponseRedirect(reverse('question', args=[str(pk)]))     
+        messages.warning(request, 'please login first')
+        return redirect('login')       
 
 def LikeViewResponse(request):
     response = get_object_or_404(Response, id=request.POST.get('response_id')) # this will take that button from form
@@ -177,10 +174,11 @@ def LikeViewResponse(request):
             response.likes.remove(request.user)
         else:
             response.likes.add(request.user) # saving that person who liked the question
+        return HttpResponseRedirect(reverse('question', args=[str(response.question.id)]))         
     else:
         messages.warning(request, 'please login first')  
-
-    return HttpResponseRedirect(reverse('question', args=[str(response.question.id)]))    
+        return redirect('login')  
+   
 
 
 @login_required
