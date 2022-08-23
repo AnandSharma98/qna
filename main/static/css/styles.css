@@ -22,9 +22,9 @@ ul {
 }
 
 blockquote {
-  border-left: 6px solid rgb(80, 79, 112);
-  padding-left: 6px;
-  margin-left: 15px;
+  background-color: gainsboro;
+  padding: 6px;
+  margin: 15px;
 }
 
 .main {
@@ -213,6 +213,8 @@ https://stackoverflow.com/questions/11227322/css-selectors-ul-li-a-vs-ul-li-a
 
 .question-body {
   margin-bottom: 6px;
+  border: solid 1px;
+  border-color:darkgrey;
 }
 
 .question-author {

@@ -1,7 +1,7 @@
 {% extends 'page.html' %} 
 {% block content %}
 <div class="profile-block">
-<p><img class="shadow-lg p-3 mb-5 bg-white rounded"  src="{{ user.profile.avatar.url }} " style="box-shadow: 1px 3px;"/>
+<p><img class="shadow-lg p-3 mb-5 bg-white rounded"  src="{{ user.profile.avatar.url }} " style="box-shadow: 1px 3px; margin: 50px"/>
 </p>
   {% if user_form.errors %}
   <div class="alert alert-danger alert-dismissible" role="alert">
